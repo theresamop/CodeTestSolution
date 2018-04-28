@@ -20,5 +20,18 @@ namespace CodingTest.Services
             return EmailTemplates.GetAll(EmailSortBy.EmailLabelAscending,1,  10, true, Modules.Config.EmailType.WelcomeEmail);
            
         }
+
+        public EmailTemplates GetAllTemplatesSorted(string columnSortBy)
+        {
+            EmailSortBy sortBy = EmailSortBy.EmailLabelAscending;
+            switch (columnSortBy)
+            {
+                case "EmailLabelDescending":
+                    sortBy = EmailSortBy.EmailLabelDescending;
+                    break;
+            }
+            return EmailTemplates.GetAll(sortBy, 1, 10, true, Modules.Config.EmailType.WelcomeEmail);
+
+        }
     }
 }

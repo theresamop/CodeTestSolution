@@ -11,6 +11,11 @@ export class EmailTemplatesService {
         return this._http.get("http://localhost:30926/api/EmailTemplate")
             .map((response: Response) => <IEmailTemplate[]> response.json())
     }
+
+    getEmailTemplatesSorted(columnSortBy : string): Observable<IEmailTemplate[]> {
+        return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=" + columnSortBy)
+            .map((response: Response) => <IEmailTemplate[]>response.json())
+    }
     //getEmailTemplates(): IEmailTemplate[] {
     //    return [
     //        {  _x003C_ParentId_x003E_k__BackingField: 'name1', _x003C_Subject_x003E_k__BackingField: 'code1' },

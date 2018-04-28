@@ -27,4 +27,10 @@ export class EmailTemplateComponent implements OnInit{
     getTotalDatacnt() {
         this.emailtemplates.length;
     }
+
+    onClick(col: string): void {
+        console.log("sorted clicked " + col)
+        this._emailTempSvc.getEmailTemplatesSorted(col)
+            .subscribe((emailTemplateData) => this.emailtemplates = emailTemplateData);
+    }
 }

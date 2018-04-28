@@ -20,6 +20,10 @@ var EmailTemplatesService = /** @class */ (function () {
         return this._http.get("http://localhost:30926/api/EmailTemplate")
             .map(function (response) { return response.json(); });
     };
+    EmailTemplatesService.prototype.getEmailTemplatesSorted = function (columnSortBy) {
+        return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=" + columnSortBy)
+            .map(function (response) { return response.json(); });
+    };
     EmailTemplatesService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.Http])

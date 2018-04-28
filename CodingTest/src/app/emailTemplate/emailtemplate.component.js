@@ -26,6 +26,12 @@ var EmailTemplateComponent = /** @class */ (function () {
     EmailTemplateComponent.prototype.getTotalDatacnt = function () {
         this.emailtemplates.length;
     };
+    EmailTemplateComponent.prototype.onClick = function (col) {
+        var _this = this;
+        console.log("sorted clicked " + col);
+        this._emailTempSvc.getEmailTemplatesSorted(col)
+            .subscribe(function (emailTemplateData) { return _this.emailtemplates = emailTemplateData; });
+    };
     EmailTemplateComponent = __decorate([
         core_1.Component({
             selector: 'my-emailTemplate',

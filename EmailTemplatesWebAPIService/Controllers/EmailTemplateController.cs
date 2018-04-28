@@ -35,6 +35,26 @@ namespace EmailTemplatesWebAPIService.Controllers
 
             return EmailTemplatesList;
         }
+
+        public IEnumerable<EmailT> GetAllEmailTemplatesSorted(string columnSortBy)
+        {
+            EmailTemplateSvc _emailTemplateSvc = new EmailTemplateSvc();
+
+            List<EmailT> EmailTemplatesList = new List<EmailT>();
+
+
+            var items = _emailTemplateSvc.GetAllTemplatesSorted(columnSortBy);
+            foreach (var i in items)
+            {
+                EmailT et = new EmailT();
+                et.FromAddress = i.FromAddress;
+                et.Subject = i.EmailLabel;
+                EmailTemplatesList.Add(et);
+            }
+            // return _emailTemplateSvc.GetAllTemplates();
+
+            return EmailTemplatesList;
+        }
     }
 
     public class EmailT
