@@ -11,17 +11,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var emailTemplatesService_1 = require("./emailTemplatesService");
+var pager_service_1 = require("../service/pager.service");
 var EmailTemplateComponent = /** @class */ (function () {
     // private _emailTempSvc: EmailTemplatesService;
-    function EmailTemplateComponent(_emailTempSvc) {
+    function EmailTemplateComponent(_emailTempSvc, pagerService) {
         this._emailTempSvc = _emailTempSvc;
+        this.pagerService = pagerService;
+        this.data = {};
+        this.pagedItems = [];
+        this.totalCnt = 0;
+        this.pageSz = 0;
+        this.pageNum = 1;
+        this.columnSortBy = "EmailLabelAscending";
     }
     EmailTemplateComponent.prototype.ngOnInit = function () {
+        //this._emailTempSvc.getEmailTemplates()
+        //    .subscribe((emailTemplateData) => { this.emailtemplates = emailTemplateData; this.setPage(1); });
         var _this = this;
-        this._emailTempSvc.getEmailTemplates()
-            .subscribe(function (emailTemplateData) { return _this.emailtemplates = emailTemplateData; });
-        //this.emailtemplates = this._emailTempSvc.getEmailTemplates()
-        //    .subscribe((emailTemplateData) => this.emailtemplates = emailTemplateData);
+        this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(function (suc) { _this.data = suc; _this.totalCnt = _this.data.ItemsTotalCount / _this.data.ItemsPageSz; _this.emailtemplates = _this.data.EmailTemplateModels; _this.createRange(); });
+        //  this.emailtemplates = <IEmailTemplate[]>this.data.EmailTemplateModels;
+        //this.totalCnt = this.data.ItemsTotalCount;
+        this.pageSz = this.data.ItemsPageSz;
     };
     EmailTemplateComponent.prototype.getTotalDatacnt = function () {
         this.emailtemplates.length;
@@ -29,17 +39,40 @@ var EmailTemplateComponent = /** @class */ (function () {
     EmailTemplateComponent.prototype.onClick = function (col) {
         var _this = this;
         console.log("sorted clicked " + col);
-        this._emailTempSvc.getEmailTemplatesSorted(col)
-            .subscribe(function (emailTemplateData) { return _this.emailtemplates = emailTemplateData; });
+        this.columnSortBy = col;
+        this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(function (suc) {
+            _this.data = suc;
+            _this.totalCnt = _this.data.ItemsTotalCount / _this.data.ItemsPageSz;
+            _this.emailtemplates = _this.data.EmailTemplateModels;
+            _this.createRange();
+        });
+        //this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum)
+        //    .subscribe((emailTemplateData) => this.emailtemplates = emailTemplateData);
+    };
+    EmailTemplateComponent.prototype.createRange = function () {
+        this.pagedItems = [];
+        for (var i = 1; i <= this.totalCnt; i++) {
+            this.pagedItems.push(i);
+        }
+    };
+    EmailTemplateComponent.prototype.setPage = function (page) {
+        var _this = this;
+        this.pageNum = page;
+        console.log("setPage clicked " + page);
+        this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(function (suc) {
+            _this.data = suc;
+            _this.totalCnt = _this.data.ItemsTotalCount / _this.data.ItemsPageSz;
+            _this.emailtemplates = _this.data.EmailTemplateModels;
+        });
     };
     EmailTemplateComponent = __decorate([
         core_1.Component({
             selector: 'my-emailTemplate',
             templateUrl: 'app/emailTemplate/emailtemplate.component.html',
             styleUrls: [],
-            providers: [emailTemplatesService_1.EmailTemplatesService]
+            providers: [emailTemplatesService_1.EmailTemplatesService, pager_service_1.PagerService]
         }),
-        __metadata("design:paramtypes", [emailTemplatesService_1.EmailTemplatesService])
+        __metadata("design:paramtypes", [emailTemplatesService_1.EmailTemplatesService, pager_service_1.PagerService])
     ], EmailTemplateComponent);
     return EmailTemplateComponent;
 }());

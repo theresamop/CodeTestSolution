@@ -9,6 +9,6 @@ namespace CodingTest.Interfaces
     public interface IEmailTemplateSvc
     {
         List<EmailTemplateModel> GetAllTemplates();
-        List<EmailTemplateModel> GetAllTemplatesSorted(string columnSortBy, int pageNum);
+        List<EmailTemplateModel> GetAllTemplatesSorted(string columnSortBy, int pageNum, out int totalCnt);
     }
 }

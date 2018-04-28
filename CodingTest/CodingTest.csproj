@@ -893,7 +893,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Config\" />
     <Folder Include="Repositories\" />
-    <Folder Include="src\app\autogrid\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -926,6 +925,8 @@
     <TypeScriptCompile Include="src\app\emailTemplate\emailtemplate.component.ts" />
     <TypeScriptCompile Include="src\app\emailTemplate\emailTemplate.ts" />
     <TypeScriptCompile Include="src\app\emailTemplate\emailTemplatesService.ts" />
+    <TypeScriptCompile Include="src\app\service\index.ts" />
+    <TypeScriptCompile Include="src\app\service\pager.service.ts" />
     <TypeScriptCompile Include="src\main.ts" />
   </ItemGroup>
   <PropertyGroup>

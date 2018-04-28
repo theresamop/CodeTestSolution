@@ -32,4 +32,56 @@ h1 {
     color: white;
 }
 
-</style >
+
+.toolbar ul {
+    display: table-row;
+}
+
+    .toolbar ul li {
+        display: table-cell;
+        height: 100px;
+        list-style-type: none;
+        margin: 10px;
+        vertical-align: middle;
+       
+    }
+
+        .toolbar ul li a {
+            display: table-cell;
+            vertical-align: middle;
+            height: 100px;
+            border: solid 1px black;
+            width: 55px;
+            float: left;
+        }
+
+        .toolbar ul li.button a {
+            height: 50px;
+            border: solid 1px black;
+            width: 55px;
+            float: left;
+        }
+
+
+#navcontainer ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+}
+
+    #navcontainer ul li {
+        display: inline;
+    }
+
+        #navcontainer ul li a {
+            text-decoration: none;
+            padding: .2em 1em;
+            color: #fff;
+            background-color: #036;
+        }
+
+            #navcontainer ul li a:hover {
+                color: #fff;
+                background-color: #369;
+            }

@@ -8,9 +8,9 @@
     <table id="emailTemplate">
         <thead>
             <tr>
-                <th on-click="onClick('EmailLabelDescending')">name</th>
-                <th on-click="onClick('EmailLabelAscending')">code</th>
-                <th on-click="onClick('EmailLabelAscending')">code</th>
+                <th on-click="onClick('EmailLabelDescending')">Email Label</th>
+                <th on-click="onClick('EmailLabelAscending')">From Address</th>
+                <th on-click="onClick('EmailLabelAscending')">Date Updated</th>
             </tr>
         </thead>
         <tbody>
@@ -19,10 +19,27 @@
                 <td>{{emailtemplate.FromAddress}}</td>
                 <td>{{emailtemplate.DateUpdated}}</td>
             </tr>
+            <tr>
+                
+                <td colspan="3">
+                    <div class="toolbar" >
+                        
+                        <ul *ngFor="let item of pagedItems" class="pagination">
+                            <li >
+                                <a (click)="setPage(item)">{{item}}</a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                   
+                </td>
+            </tr>
             <tr *ngIf="!emailtemplates || emailtemplates.length==0">
                 <td colspan="2"></td>
             </tr>
+
         </tbody>
+
     </table>
 </body>
 </html>

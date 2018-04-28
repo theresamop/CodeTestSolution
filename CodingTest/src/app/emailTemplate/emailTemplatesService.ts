@@ -8,15 +8,18 @@ export class EmailTemplatesService {
 
     constructor(private _http: Http) { }
     pageNum: number = 1;
-    getEmailTemplates(): Observable<IEmailTemplate[]> {
+    //getEmailTemplates(): Observable<IEmailTemplate[]> {
+    //    return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=EmailLabelAscending&pageNum=" + this.pageNum)
+    //        .map((response: Response) => <IEmailTemplate[]> response.json())
+    //}
+    getEmailTemplates(): Observable<any[]> {
         return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=EmailLabelAscending&pageNum=" + this.pageNum)
-            .map((response: Response) => <IEmailTemplate[]> response.json())
+            .map((response: Response) => response.json())
     }
-
-    getEmailTemplatesSorted(columnSortBy: string): Observable<IEmailTemplate[]> {
+    getEmailTemplatesSorted(columnSortBy: string, pageNum: number): Observable<any[]> {
      
-        return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=" + columnSortBy + "&pageNum=" + this.pageNum)
-            .map((response: Response) => <IEmailTemplate[]>response.json())
+        return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=" + columnSortBy + "&pageNum=" + pageNum)
+            .map((response: Response) => response.json())
     }
     //getEmailTemplates(): IEmailTemplate[] {
     //    return [
@@ -24,4 +27,6 @@ export class EmailTemplatesService {
     //        { _x003C_ParentId_x003E_k__BackingField: 'name2', _x003C_Subject_x003E_k__BackingField: 'code3' }
     //    ];
     //}
+
+    
 }

@@ -16,11 +16,13 @@ namespace EmailTemplatesWebAPIService.Controllers
         {
             _emailTemplateSvc = new EmailTemplateSvc();
         }
-        public IEnumerable<EmailTemplateModel> GetAllEmailTemplatesSorted(string columnSortBy, int pageNum)
+        public EmailTemplatVieweModel GetAllEmailTemplatesSorted(string columnSortBy, int pageNum)
         {
-            var items = _emailTemplateSvc.GetAllTemplatesSorted(columnSortBy, pageNum);
-
-            return items;
+            EmailTemplatVieweModel vm = new EmailTemplatVieweModel();
+            vm.EmailTemplateModels = _emailTemplateSvc.GetAllTemplatesSorted(columnSortBy, pageNum, out int totalCnt);
+            vm.ItemsTotalCount = totalCnt;
+            vm.ItemsPageSz = 10;
+            return vm;
         }
 
         //public IEnumerable<EmailTemplateModel> GetAllEmailTemplates()

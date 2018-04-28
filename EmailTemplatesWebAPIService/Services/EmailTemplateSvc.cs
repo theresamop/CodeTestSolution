@@ -21,7 +21,7 @@ namespace CodingTest.Services
             return LocalMapper(items);
         }
 
-        public List<EmailTemplateModel> GetAllTemplatesSorted(string columnSortBy, int pageNum)
+        public List<EmailTemplateModel> GetAllTemplatesSorted(string columnSortBy, int pageNum, out int totalCnt)
         {
             if (string.IsNullOrEmpty(columnSortBy))
                 columnSortBy = "EmailLabelAscending";
@@ -30,7 +30,7 @@ namespace CodingTest.Services
 
             var sortBy = Enum.Parse(typeof(EmailSortBy), columnSortBy);
             var items = EmailTemplates.GetAll((EmailSortBy)sortBy, pageNum, 10, true, Modules.Config.EmailType.WelcomeEmail);
-
+            totalCnt = items.TotalCount;
             return LocalMapper(items);
 
 

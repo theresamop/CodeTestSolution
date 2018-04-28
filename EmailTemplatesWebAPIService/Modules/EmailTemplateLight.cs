@@ -230,7 +230,7 @@ namespace Modules.Business {
 			if (EmailType != null) {
 				this.RemoveAll(x => x.EmailType != (Config.EmailType)EmailType);
 			}
-
+            TotalCount = this.Count;
 			if (RecsPerPage != null && this.Count > RecsPerPage) {
 				if (Page == null)
 					Page = 1;
@@ -298,6 +298,7 @@ namespace Modules.Business {
 			emailTemplates.Active = active;
 			emailTemplates.EmailType = emailType;
 			emailTemplates.Load();
+ 
 			return emailTemplates;
 		}
 
