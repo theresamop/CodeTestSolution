@@ -57,15 +57,24 @@ var EmailTemplateComponent = /** @class */ (function () {
     };
     EmailTemplateComponent.prototype.createRange = function () {
         this.pagedItems = [];
-        for (var i = 1; i <= this.totalPages; i++) {
-            this.pagedItems.push(i);
+        for (var i = 0; i <= this.totalPages; i++) {
+            {
+                if (i == 0)
+                    this.pagedItems.push("<<");
+                else if (i == this.totalPages) {
+                    this.pagedItems.push(i);
+                    this.pagedItems.push(">>");
+                }
+                else
+                    this.pagedItems.push(i);
+            }
         }
         this.textItems = "Page " + this.pageNum + " of " + this.totalPages;
     };
     EmailTemplateComponent.prototype.setPage = function (page) {
         var _this = this;
-        this.pageNum = page;
-        this.textItems = "Page " + page + " of " + this.totalPages;
+        this.pageNum = page == "<<" ? (this.pageNum == 1 ? 1 : this.pageNum - 1) : (page == ">>" ? (this.pageNum == this.totalPages ? this.totalPages : this.pageNum + 1) : Number(page));
+        this.textItems = "Page " + this.pageNum + " of " + this.totalPages;
         console.log("setPage clicked " + page);
         this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(function (suc) {
             _this.data = suc;
