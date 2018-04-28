@@ -91,6 +91,8 @@
     <Content Include="bs-config.json" />
     <Content Include="ControllerViewModels\EmailTemplateController.js" />
     <Content Include="Default.aspx" />
+    <EmbeddedResource Include="images\down.png" />
+    <EmbeddedResource Include="images\up.png" />
     <Content Include="package.json" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />

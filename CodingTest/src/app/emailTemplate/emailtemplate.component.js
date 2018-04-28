@@ -13,22 +13,26 @@ var core_1 = require("@angular/core");
 var emailTemplatesService_1 = require("./emailTemplatesService");
 var pager_service_1 = require("../service/pager.service");
 var EmailTemplateComponent = /** @class */ (function () {
-    // private _emailTempSvc: EmailTemplatesService;
     function EmailTemplateComponent(_emailTempSvc, pagerService) {
         this._emailTempSvc = _emailTempSvc;
         this.pagerService = pagerService;
         this.data = {};
         this.pagedItems = [];
         this.totalCnt = 0;
+        this.totalPages = 0;
         this.pageSz = 0;
         this.pageNum = 1;
-        this.columnSortBy = "EmailLabelAscending";
+        this.columnSortBy = "EmailLabel";
+        this.sortByDirection = "Ascending";
+        this.classSort = "chevron-up";
+        this.textItems = "";
     }
     EmailTemplateComponent.prototype.ngOnInit = function () {
+        var _this = this;
         //this._emailTempSvc.getEmailTemplates()
         //    .subscribe((emailTemplateData) => { this.emailtemplates = emailTemplateData; this.setPage(1); });
-        var _this = this;
-        this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(function (suc) { _this.data = suc; _this.totalCnt = _this.data.ItemsTotalCount / _this.data.ItemsPageSz; _this.emailtemplates = _this.data.EmailTemplateModels; _this.createRange(); });
+        this.columnSortBy = this.columnSortBy + this.sortByDirection;
+        this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(function (suc) { _this.data = suc; _this.totalCnt = _this.data.ItemsTotalCount; _this.totalPages = _this.data.ItemsTotalCount / _this.data.ItemsPageSz; _this.emailtemplates = _this.data.EmailTemplateModels; _this.createRange(); });
         //  this.emailtemplates = <IEmailTemplate[]>this.data.EmailTemplateModels;
         //this.totalCnt = this.data.ItemsTotalCount;
         this.pageSz = this.data.ItemsPageSz;
@@ -38,11 +42,13 @@ var EmailTemplateComponent = /** @class */ (function () {
     };
     EmailTemplateComponent.prototype.onClick = function (col) {
         var _this = this;
-        console.log("sorted clicked " + col);
-        this.columnSortBy = col;
+        console.log("sorted clicked " + col + " " + this.sortByDirection);
+        this.setDirection(this.sortByDirection);
+        this.columnSortBy = col + this.sortByDirection;
         this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(function (suc) {
             _this.data = suc;
-            _this.totalCnt = _this.data.ItemsTotalCount / _this.data.ItemsPageSz;
+            _this.totalCnt = _this.data.ItemsTotalCount;
+            _this.totalPages = _this.data.ItemsTotalCount / _this.data.ItemsPageSz;
             _this.emailtemplates = _this.data.EmailTemplateModels;
             _this.createRange();
         });
@@ -51,19 +57,32 @@ var EmailTemplateComponent = /** @class */ (function () {
     };
     EmailTemplateComponent.prototype.createRange = function () {
         this.pagedItems = [];
-        for (var i = 1; i <= this.totalCnt; i++) {
+        for (var i = 1; i <= this.totalPages; i++) {
             this.pagedItems.push(i);
         }
+        this.textItems = "Page " + this.pageNum + " of " + this.totalPages;
     };
     EmailTemplateComponent.prototype.setPage = function (page) {
         var _this = this;
         this.pageNum = page;
+        this.textItems = "Page " + page + " of " + this.totalPages;
         console.log("setPage clicked " + page);
         this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(function (suc) {
             _this.data = suc;
-            _this.totalCnt = _this.data.ItemsTotalCount / _this.data.ItemsPageSz;
+            _this.totalCnt = _this.data.ItemsTotalCount;
+            _this.totalPages = _this.data.ItemsTotalCount / _this.data.ItemsPageSz;
             _this.emailtemplates = _this.data.EmailTemplateModels;
         });
+    };
+    EmailTemplateComponent.prototype.setDirection = function (direction) {
+        if (direction == "Ascending") {
+            this.sortByDirection = "Descending";
+            this.classSort = "chevron-down";
+        }
+        else {
+            this.sortByDirection = "Ascending";
+            this.classSort = "chevron-up";
+        }
     };
     EmailTemplateComponent = __decorate([
         core_1.Component({
