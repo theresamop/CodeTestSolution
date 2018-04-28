@@ -1,4 +1,5 @@
-﻿using Modules.Business;
+﻿using EmailTemplatesWebAPIService.Model;
+using Modules.Business;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -7,6 +8,7 @@ namespace CodingTest.Interfaces
 {
     public interface IEmailTemplateSvc
     {
-        EmailTemplates GetAllTemplates();
+        List<EmailTemplateModel> GetAllTemplates();
+        List<EmailTemplateModel> GetAllTemplatesSorted(string columnSortBy, int pageNum);
     }
 }

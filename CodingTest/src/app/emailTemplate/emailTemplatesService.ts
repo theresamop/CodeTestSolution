@@ -7,13 +7,15 @@ import 'rxjs/add/operator/map'
 export class EmailTemplatesService {
 
     constructor(private _http: Http) { }
+    pageNum: number = 1;
     getEmailTemplates(): Observable<IEmailTemplate[]> {
-        return this._http.get("http://localhost:30926/api/EmailTemplate")
+        return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=EmailLabelAscending&pageNum=" + this.pageNum)
             .map((response: Response) => <IEmailTemplate[]> response.json())
     }
 
-    getEmailTemplatesSorted(columnSortBy : string): Observable<IEmailTemplate[]> {
-        return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=" + columnSortBy)
+    getEmailTemplatesSorted(columnSortBy: string): Observable<IEmailTemplate[]> {
+     
+        return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=" + columnSortBy + "&pageNum=" + this.pageNum)
             .map((response: Response) => <IEmailTemplate[]>response.json())
     }
     //getEmailTemplates(): IEmailTemplate[] {

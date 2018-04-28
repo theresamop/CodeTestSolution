@@ -290,7 +290,7 @@ namespace Modules.Business {
 		/// <param name="groups"></param>
 		/// <param name="emailType"></param>
 		/// <returns></returns>
-		public static EmailTemplates GetAll(EmailSortBy sortBy, int page, int recsPerPage, bool active, Config.EmailType emailType) {
+		public static EmailTemplates GetAll(EmailSortBy sortBy, int page, int recsPerPage, bool active, Config.EmailType emailType ) {
 			EmailTemplates emailTemplates = new EmailTemplates();
 			emailTemplates.SortBy = sortBy;
 			emailTemplates.Page = page;

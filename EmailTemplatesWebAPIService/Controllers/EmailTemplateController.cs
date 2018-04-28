@@ -1,5 +1,6 @@
 ﻿using CodingTest.Interfaces;
 using CodingTest.Services;
+using EmailTemplatesWebAPIService.Model;
 using Modules.Business;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,57 +10,27 @@ namespace EmailTemplatesWebAPIService.Controllers
 {
     public class EmailTemplateController : ApiController
     {
-        // protected IEmailTemplateSvc _emailTemplateSvc;
+         protected IEmailTemplateSvc _emailTemplateSvc;
 
-        //public EmailTemplateController(IEmailTemplateSvc emailTemplateSvc)
+        public EmailTemplateController() 
+        {
+            _emailTemplateSvc = new EmailTemplateSvc();
+        }
+        public IEnumerable<EmailTemplateModel> GetAllEmailTemplatesSorted(string columnSortBy, int pageNum)
+        {
+            var items = _emailTemplateSvc.GetAllTemplatesSorted(columnSortBy, pageNum);
+
+            return items;
+        }
+
+        //public IEnumerable<EmailTemplateModel> GetAllEmailTemplates()
         //{
-        //    _emailTemplateSvc = emailTemplateSvc;
+        //    var items = _emailTemplateSvc.GetAllTemplates();
+        //    return items;
         //}
 
-        public IEnumerable<EmailT> GetAllEmailTemplates()
-        {
-            EmailTemplateSvc _emailTemplateSvc = new EmailTemplateSvc();
 
-            List<EmailT> EmailTemplatesList = new List<EmailT>();
-           
-            
-            var items = _emailTemplateSvc.GetAllTemplates();
-            foreach(var i in items )
-            {
-                EmailT et = new EmailT();
-                et.FromAddress = i.FromAddress;
-                et.Subject = i.Subject;
-                EmailTemplatesList.Add(et);
-            }
-            // return _emailTemplateSvc.GetAllTemplates();
-
-            return EmailTemplatesList;
-        }
-
-        public IEnumerable<EmailT> GetAllEmailTemplatesSorted(string columnSortBy)
-        {
-            EmailTemplateSvc _emailTemplateSvc = new EmailTemplateSvc();
-
-            List<EmailT> EmailTemplatesList = new List<EmailT>();
-
-
-            var items = _emailTemplateSvc.GetAllTemplatesSorted(columnSortBy);
-            foreach (var i in items)
-            {
-                EmailT et = new EmailT();
-                et.FromAddress = i.FromAddress;
-                et.Subject = i.EmailLabel;
-                EmailTemplatesList.Add(et);
-            }
-            // return _emailTemplateSvc.GetAllTemplates();
-
-            return EmailTemplatesList;
-        }
     }
 
-    public class EmailT
-    {
-        public string Subject { get; set; }
-        public string FromAddress { get; set; }
-    }
+    
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web;
 using CodingTest.Interfaces;
+using EmailTemplatesWebAPIService.Model;
 using Modules.Business;
 using Modules.Config;
 
@@ -15,23 +15,39 @@ namespace CodingTest.Services
            
          
         }
-        public EmailTemplates GetAllTemplates()
+        public List<EmailTemplateModel> GetAllTemplates()
         {
-            return EmailTemplates.GetAll(EmailSortBy.EmailLabelAscending,1,  10, true, Modules.Config.EmailType.WelcomeEmail);
-           
+            var items = EmailTemplates.GetAll(EmailSortBy.EmailLabelAscending, 1,  100, true, Modules.Config.EmailType.WelcomeEmail);
+            return LocalMapper(items);
         }
 
-        public EmailTemplates GetAllTemplatesSorted(string columnSortBy)
+        public List<EmailTemplateModel> GetAllTemplatesSorted(string columnSortBy, int pageNum)
         {
-            EmailSortBy sortBy = EmailSortBy.EmailLabelAscending;
-            switch (columnSortBy)
-            {
-                case "EmailLabelDescending":
-                    sortBy = EmailSortBy.EmailLabelDescending;
-                    break;
-            }
-            return EmailTemplates.GetAll(sortBy, 1, 10, true, Modules.Config.EmailType.WelcomeEmail);
+            if (string.IsNullOrEmpty(columnSortBy))
+                columnSortBy = "EmailLabelAscending";
+            if (pageNum == 0)
+                pageNum = 1;
 
+            var sortBy = Enum.Parse(typeof(EmailSortBy), columnSortBy);
+            var items = EmailTemplates.GetAll((EmailSortBy)sortBy, pageNum, 10, true, Modules.Config.EmailType.WelcomeEmail);
+
+            return LocalMapper(items);
+
+
+        }
+       
+        private List<EmailTemplateModel> LocalMapper(List<EmailTemplate> emailTemplatesNative)
+        {
+            List<EmailTemplateModel> emailTemplates = new List<EmailTemplateModel>();
+            foreach (var i in emailTemplatesNative)
+            {
+                EmailTemplateModel model = new EmailTemplateModel();
+                model.EmailLabel = i.EmailLabel;
+                model.FromAddress = i.FromAddress;
+                model.DateUpdated = i.DateUpdated.ToShortDateString();
+                emailTemplates.Add(model);
+            }
+            return emailTemplates;
         }
     }
 }

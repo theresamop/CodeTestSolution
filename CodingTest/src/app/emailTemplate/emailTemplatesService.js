@@ -15,13 +15,14 @@ require("rxjs/add/operator/map");
 var EmailTemplatesService = /** @class */ (function () {
     function EmailTemplatesService(_http) {
         this._http = _http;
+        this.pageNum = 1;
     }
     EmailTemplatesService.prototype.getEmailTemplates = function () {
-        return this._http.get("http://localhost:30926/api/EmailTemplate")
+        return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=EmailLabelAscending&pageNum=" + this.pageNum)
             .map(function (response) { return response.json(); });
     };
     EmailTemplatesService.prototype.getEmailTemplatesSorted = function (columnSortBy) {
-        return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=" + columnSortBy)
+        return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=" + columnSortBy + "&pageNum=" + this.pageNum)
             .map(function (response) { return response.json(); });
     };
     EmailTemplatesService = __decorate([
