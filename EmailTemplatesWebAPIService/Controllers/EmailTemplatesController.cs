@@ -12,7 +12,7 @@ namespace EmailTemplatesWebAPIService.Controllers
     [System.Web.Mvc.RoutePrefix("api/emailtemplates")]
     public class EmailTemplatesController : ApiController
     {
-         protected IEmailTemplateSvc _emailTemplateSvc;
+         protected EmailTemplateSvc _emailTemplateSvc;
 
         public EmailTemplatesController() 
         {

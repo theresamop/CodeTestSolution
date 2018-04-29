@@ -17,7 +17,10 @@ var EmailTemplatesService = /** @class */ (function () {
         this._http = _http;
         this.pageNum = 1;
     }
-   
+    //getEmailTemplates(): Observable<IEmailTemplate[]> {
+    //    return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=EmailLabelAscending&pageNum=" + this.pageNum)
+    //        .map((response: Response) => <IEmailTemplate[]> response.json())
+    //}
     EmailTemplatesService.prototype.getEmailTemplates = function () {
         return this._http.get("http://localhost:30926/api/emailtemplates/EmailLabelAscending/" + this.pageNum)
             .map(function (response) { return response.json(); });

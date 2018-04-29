@@ -89,7 +89,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bs-config.json" />
-    <Content Include="ControllerViewModels\EmailTemplateController.js" />
     <Content Include="Default.aspx" />
     <EmbeddedResource Include="images\down.png" />
     <EmbeddedResource Include="images\up.png" />
@@ -876,9 +875,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="api\APIEmailTemplateController.cs" />
-    <Compile Include="Controllers\APIEmailTemplateController1.cs" />
-    <Compile Include="Controllers\EmailTemplateController.cs" />
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
@@ -893,7 +889,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Config\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
