@@ -17,16 +17,13 @@ var EmailTemplatesService = /** @class */ (function () {
         this._http = _http;
         this.pageNum = 1;
     }
-    //getEmailTemplates(): Observable<IEmailTemplate[]> {
-    //    return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=EmailLabelAscending&pageNum=" + this.pageNum)
-    //        .map((response: Response) => <IEmailTemplate[]> response.json())
-    //}
+   
     EmailTemplatesService.prototype.getEmailTemplates = function () {
-        return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=EmailLabelAscending&pageNum=" + this.pageNum)
+        return this._http.get("http://localhost:30926/api/emailtemplates/EmailLabelAscending/" + this.pageNum)
             .map(function (response) { return response.json(); });
     };
     EmailTemplatesService.prototype.getEmailTemplatesSorted = function (columnSortBy, pageNum) {
-        return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=" + columnSortBy + "&pageNum=" + pageNum)
+        return this._http.get("http://localhost:30926/api/emailtemplates/" + columnSortBy + "/" + pageNum)
             .map(function (response) { return response.json(); });
     };
     EmailTemplatesService.prototype.getColumns = function () {

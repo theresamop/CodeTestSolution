@@ -14,10 +14,16 @@ namespace EmailTemplatesWebAPIService
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{columnSortBy}/{pageNum}",
+            //    defaults: new { columnSortBy = RouteParameter.Optional, pageNum  = RouteParameter.Optional }
+            //);
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{columnSortBy}/{pageNum}",
-                defaults: new { columnSortBy = RouteParameter.Optional, pageNum  = RouteParameter.Optional }
+                defaults: new { columnSortBy = RouteParameter.Optional, pageNum = RouteParameter.Optional }
             );
         }
     }

@@ -13,12 +13,12 @@ export class EmailTemplatesService {
     //        .map((response: Response) => <IEmailTemplate[]> response.json())
     //}
     getEmailTemplates(): Observable<any[]> {
-        return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=EmailLabelAscending&pageNum=" + this.pageNum)
+        return this._http.get("http://localhost:30926/api/emailtemplates/EmailLabelAscending/" + this.pageNum)
             .map((response: Response) => response.json())
     }
     getEmailTemplatesSorted(columnSortBy: string, pageNum: number): Observable<any[]> {
      
-        return this._http.get("http://localhost:30926/api/EmailTemplate/GetAllEmailTemplatesSorted?columnSortBy=" + columnSortBy + "&pageNum=" + pageNum)
+        return this._http.get("http://localhost:30926/api/emailtemplates/" + columnSortBy + "/" + pageNum)
             .map((response: Response) => response.json())
     }
     getColumns(): IColumn[] {

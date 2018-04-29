@@ -9,17 +9,19 @@ using System.Web.Mvc;
 
 namespace EmailTemplatesWebAPIService.Controllers
 {
-    public class EmailTemplateController : ApiController
+    [System.Web.Mvc.RoutePrefix("api/emailtemplates")]
+    public class EmailTemplatesController : ApiController
     {
          protected IEmailTemplateSvc _emailTemplateSvc;
 
-        public EmailTemplateController() 
+        public EmailTemplatesController() 
         {
             _emailTemplateSvc = new EmailTemplateSvc();
         }
 
-        public JsonResult GetAllEmailTemplatesSorted(string columnSortBy, int pageNum)
+        public JsonResult GetAllEmailTemplatesSorted(string columnSortBy="EmailLabelAscending", int pageNum=1)
         {
+            
             EmailTemplatVieweModel vm = new EmailTemplatVieweModel();
             vm.EmailTemplateModels = _emailTemplateSvc.GetAllTemplatesSorted(columnSortBy, pageNum, out int totalCnt);
             vm.ItemsTotalCount = totalCnt;
@@ -27,12 +29,7 @@ namespace EmailTemplatesWebAPIService.Controllers
 
             return new JsonResult() { Data = vm, JsonRequestBehavior = JsonRequestBehavior.DenyGet };
         }
-
-        //public IEnumerable<EmailTemplateModel> GetAllEmailTemplates()
-        //{
-        //    var items = _emailTemplateSvc.GetAllTemplates();
-        //    return items;
-        //}
+        
 
 
     }
