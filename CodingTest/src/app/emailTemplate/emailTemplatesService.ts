@@ -24,9 +24,9 @@ export class EmailTemplatesService {
     getColumns(): IColumn[] {
 
         return [
-            { Label: "Email Label", Field: "EmailLabel", TextSort: "", SortDirection: "Ascending" },
-            { Label: "From Address", Field: "FromAddress", TextSort: "", SortDirection: "" },
-            { Label: "Date Updated", Field: "DateUpdated", TextSort: "", SortDirection: "" }
+            { Label: "Email Label", Field: "EmailLabel", ImgUrl: "../../../images/up.png", SortDirection: "Ascending" },
+            { Label: "From Address", Field: "FromAddress", ImgUrl: "../../../images/down.png", SortDirection: "Descending" },
+            { Label: "Date Updated", Field: "DateUpdated", ImgUrl: "../../../images/down.png", SortDirection: "Descending" }
         ];
 
 

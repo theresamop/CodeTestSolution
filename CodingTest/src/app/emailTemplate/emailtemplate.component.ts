@@ -26,6 +26,7 @@ export class EmailTemplateComponent implements OnInit{
     columns: IColumn[];
     isShow: boolean = true;
     isSorted: boolean = false;
+    url: string = "../../../images/up.png";//../images/up.png";
     constructor(private _emailTempSvc: EmailTemplatesService, private pagerService: PagerService) {
 
        
@@ -33,12 +34,13 @@ export class EmailTemplateComponent implements OnInit{
 
     ngOnInit() {
         
-       
+
         this.columnSortBy = this.columnSortBy + this.sortByDirection;
         this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy,this.pageNum).subscribe(suc => { this.data = suc; this.totalCnt = this.data.ItemsTotalCount; this.totalPages = this.data.ItemsTotalCount / this.data.ItemsPageSz; this.emailtemplates = <IEmailTemplate[]>this.data.EmailTemplateModels; this.createRange() });
 
         this.pageSz = this.data.ItemsPageSz;
         this.columns = this._emailTempSvc.getColumns();
+
     }
     getTotalDatacnt() {
         this.emailtemplates.length;
@@ -90,17 +92,17 @@ export class EmailTemplateComponent implements OnInit{
     setDirection(colObj: IColumn) {
         if (colObj.SortDirection == "Ascending") {
             colObj.SortDirection = "Descending";
-            colObj.TextSort = "V";
+             colObj.ImgUrl = "../../../images/down.png"
         }
         else {
             colObj.SortDirection = "Ascending";
-            colObj.TextSort = "^";
+            colObj.ImgUrl = "../../../images/up.png"
         }
         //reset sorting of other cols
-        this.columns.forEach(col => {
-            if (col.Field != colObj.Field) {
-                col.TextSort = "";
-            }
-        });
+        //this.columns.forEach(col => {
+        //    if (col.Field != colObj.Field) {
+        //        col.ImgUrl = "";
+        //    }
+        //});
     }
 }

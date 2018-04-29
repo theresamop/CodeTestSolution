@@ -7,31 +7,13 @@
 <body>
     <table id="emailTemplate">
         <thead>
+           
             <tr>
-                <!--<th ng-bind="sortByDirection" on-click="onClick('EmailLabel')">
-                    Email Label
-                    <span [style.display]="isShow?'inherit':'none'">^</span>
-                    <span [style.display]="!isShow?'inherit':'none'">v</span>
-                   
-                </th>
-                <th ng-bind="sortByDirection" on-click="onClick('FromAddress')">
-                    From Address
-                    <span [style.display]="isShow?'inherit':'none'">^</span>
-                    <span [style.display]="!isShow?'inherit':'none'">v</span>
-                </th>
-                <th ng-bind="sortByDirection" on-click="onClick('DateUpdated')">
-                    Date Updated
-                    <span [style.display]="isShow?'inherit':'none'">^</span>
-                    <span [style.display]="!isShow?'inherit':'none'">v</span>
-                </th>-->
-
-            </tr>
-            <tr>
-                
-
-                    <td style="background-color:#4CAF50" on-click="onClick(col)" *ngFor="let col of columns;">
-                        {{col.Label}} {{col.TextSort}}
-                    </td>
+                <td style="background-color:#4CAF50" on-click="onClick(col)" *ngFor="let col of columns;">
+                    {{col.Label}} {{col.TextSort}}
+                    <img src={{col.ImgUrl}} width="20" height="20" style="float: right" />
+                    
+                </td>
                 
             </tr>
         </thead>
@@ -45,13 +27,6 @@
                 <td></td>
                 <td></td>
                 <td colspan="1">
-                    <!--<div class="toolbar" fxLayout="row">
-            <ul *ngFor="let item of pagedItems" class="pagination">
-                <li>
-                    <a (click)="setPage(item)">{{item}}</a>
-                </li>
-            </ul>
-        </div>-->
 
                     <div class="footer">
                         <div class="pagination">

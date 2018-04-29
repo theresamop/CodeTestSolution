@@ -34,9 +34,9 @@ h1 {
 }
 
 #thHeader {
-       
-        background-color: #4CAF50;
-       
+    background-image: url('../images/up.png');
+    background-image: url('favicon.ico');
+    background-color: #4CAF50;
 }
 /*.toolbar ul {
     display: table-row;

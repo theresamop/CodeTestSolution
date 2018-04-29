@@ -28,6 +28,7 @@ var EmailTemplateComponent = /** @class */ (function () {
         this.textItems = "";
         this.isShow = true;
         this.isSorted = false;
+        this.url = "../../../images/up.png"; //../images/up.png";
     }
     EmailTemplateComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -84,18 +85,18 @@ var EmailTemplateComponent = /** @class */ (function () {
     EmailTemplateComponent.prototype.setDirection = function (colObj) {
         if (colObj.SortDirection == "Ascending") {
             colObj.SortDirection = "Descending";
-            colObj.TextSort = "V";
+            colObj.ImgUrl = "../../../images/down.png";
         }
         else {
             colObj.SortDirection = "Ascending";
-            colObj.TextSort = "^";
+            colObj.ImgUrl = "../../../images/up.png";
         }
         //reset sorting of other cols
-        this.columns.forEach(function (col) {
-            if (col.Field != colObj.Field) {
-                col.TextSort = "";
-            }
-        });
+        //this.columns.forEach(col => {
+        //    if (col.Field != colObj.Field) {
+        //        col.ImgUrl = "";
+        //    }
+        //});
     };
     EmailTemplateComponent = __decorate([
         core_1.Component({

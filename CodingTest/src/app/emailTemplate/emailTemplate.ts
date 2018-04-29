@@ -9,6 +9,6 @@
 export interface IColumn {
     Label: string,
     Field: string,
-    TextSort: string,
-    SortDirection: string
+    SortDirection: string,
+    ImgUrl: string
 }
