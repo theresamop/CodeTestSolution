@@ -2,18 +2,13 @@
 <%@ Import Namespace="Modules.Business" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <script  type="text/javascript"  src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-
-<script type="text/javascript" src='@Url.DatedContent("~/ControllerViewModels/EmailTemplateController.js")'></script>
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
     <title>OPM Web Team Coding Test</title>
     <script type="text/javascript">
  
-            $(document).ready(function() {
-                new EmailTemplateController().init();
-            });
- 
-        </script>
+           
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">

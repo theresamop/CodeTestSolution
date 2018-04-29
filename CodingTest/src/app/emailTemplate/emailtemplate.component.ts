@@ -37,7 +37,7 @@ export class EmailTemplateComponent implements OnInit{
 
         this.columnSortBy = this.columnSortBy + this.sortByDirection;
       //  this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy,this.pageNum).subscribe(suc => { this.data = suc; this.totalCnt = this.data.ItemsTotalCount; this.totalPages = this.data.ItemsTotalCount / this.data.ItemsPageSz; this.emailtemplates = <IEmailTemplate[]>this.data.EmailTemplateModels; this.createRange() });
-        this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(suc => {
+        this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe((suc:any) => {
             this.data = suc; this.totalCnt = this.data.Data.ItemsTotalCount; this.totalPages = this.data.Data.ItemsTotalCount / this.data.Data.ItemsPageSz;
             this.emailtemplates = <IEmailTemplate[]>this.data.Data.EmailTemplateModels;
             this.createRange(); this.pageSz = this.data.Data.ItemsPageSz;
@@ -58,7 +58,7 @@ export class EmailTemplateComponent implements OnInit{
         this.setDirection(colObj);
         this.columnSortBy = colObj.Field + colObj.SortDirection;
 
-        this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(suc =>
+        this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe((suc: any)  =>
         {
             this.data = suc; this.totalCnt = this.data.Data.ItemsTotalCount; this.totalPages = this.data.Data.ItemsTotalCount / this.data.Data.ItemsPageSz;
             this.emailtemplates = <IEmailTemplate[]>this.data.Data.EmailTemplateModels;
@@ -88,7 +88,7 @@ export class EmailTemplateComponent implements OnInit{
         this.pageNum = page == "<<" ? (this.pageNum == 1 ? 1 : this.pageNum - 1) : (page == ">>" ? (this.pageNum == this.totalPages ? this.totalPages : this.pageNum + 1) : Number(page));
         this.textItems = "Page " + this.pageNum  + " of " + this.totalPages;
         console.log("setPage clicked " + page)
-        this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(suc => {
+        this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe((suc: any)  => {
             this.data = suc; this.totalCnt = this.data.Data.ItemsTotalCount; this.totalPages = this.data.Data.ItemsTotalCount / this.data.Data.ItemsPageSz;
             this.emailtemplates = <IEmailTemplate[]>this.data.Data.EmailTemplateModels;
             this.createRange()
