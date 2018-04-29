@@ -33,8 +33,16 @@ var EmailTemplateComponent = /** @class */ (function () {
     EmailTemplateComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.columnSortBy = this.columnSortBy + this.sortByDirection;
-        this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(function (suc) { _this.data = suc; _this.totalCnt = _this.data.ItemsTotalCount; _this.totalPages = _this.data.ItemsTotalCount / _this.data.ItemsPageSz; _this.emailtemplates = _this.data.EmailTemplateModels; _this.createRange(); });
-        this.pageSz = this.data.ItemsPageSz;
+        //  this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy,this.pageNum).subscribe(suc => { this.data = suc; this.totalCnt = this.data.ItemsTotalCount; this.totalPages = this.data.ItemsTotalCount / this.data.ItemsPageSz; this.emailtemplates = <IEmailTemplate[]>this.data.EmailTemplateModels; this.createRange() });
+        this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(function (suc) {
+            _this.data = suc;
+            _this.totalCnt = _this.data.Data.ItemsTotalCount;
+            _this.totalPages = _this.data.Data.ItemsTotalCount / _this.data.Data.ItemsPageSz;
+            _this.emailtemplates = _this.data.Data.EmailTemplateModels;
+            _this.createRange();
+            _this.pageSz = _this.data.Data.ItemsPageSz;
+        });
+        // this.pageSz = this.data.Data.ItemsPageSz;
         this.columns = this._emailTempSvc.getColumns();
     };
     EmailTemplateComponent.prototype.getTotalDatacnt = function () {
@@ -48,9 +56,9 @@ var EmailTemplateComponent = /** @class */ (function () {
         this.columnSortBy = colObj.Field + colObj.SortDirection;
         this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(function (suc) {
             _this.data = suc;
-            _this.totalCnt = _this.data.ItemsTotalCount;
-            _this.totalPages = _this.data.ItemsTotalCount / _this.data.ItemsPageSz;
-            _this.emailtemplates = _this.data.EmailTemplateModels;
+            _this.totalCnt = _this.data.Data.ItemsTotalCount;
+            _this.totalPages = _this.data.Data.ItemsTotalCount / _this.data.Data.ItemsPageSz;
+            _this.emailtemplates = _this.data.Data.EmailTemplateModels;
             _this.createRange();
         });
     };
@@ -77,9 +85,10 @@ var EmailTemplateComponent = /** @class */ (function () {
         console.log("setPage clicked " + page);
         this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(function (suc) {
             _this.data = suc;
-            _this.totalCnt = _this.data.ItemsTotalCount;
-            _this.totalPages = _this.data.ItemsTotalCount / _this.data.ItemsPageSz;
-            _this.emailtemplates = _this.data.EmailTemplateModels;
+            _this.totalCnt = _this.data.Data.ItemsTotalCount;
+            _this.totalPages = _this.data.Data.ItemsTotalCount / _this.data.Data.ItemsPageSz;
+            _this.emailtemplates = _this.data.Data.EmailTemplateModels;
+            _this.createRange();
         });
     };
     EmailTemplateComponent.prototype.setDirection = function (colObj) {

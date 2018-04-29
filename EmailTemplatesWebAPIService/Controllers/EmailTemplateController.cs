@@ -5,6 +5,7 @@ using Modules.Business;
 using System.Collections;
 using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Mvc;
 
 namespace EmailTemplatesWebAPIService.Controllers
 {
@@ -16,13 +17,15 @@ namespace EmailTemplatesWebAPIService.Controllers
         {
             _emailTemplateSvc = new EmailTemplateSvc();
         }
-        public EmailTemplatVieweModel GetAllEmailTemplatesSorted(string columnSortBy, int pageNum)
+
+        public JsonResult GetAllEmailTemplatesSorted(string columnSortBy, int pageNum)
         {
             EmailTemplatVieweModel vm = new EmailTemplatVieweModel();
             vm.EmailTemplateModels = _emailTemplateSvc.GetAllTemplatesSorted(columnSortBy, pageNum, out int totalCnt);
             vm.ItemsTotalCount = totalCnt;
             vm.ItemsPageSz = 10;
-            return vm;
+
+            return new JsonResult() { Data = vm, JsonRequestBehavior = JsonRequestBehavior.DenyGet };
         }
 
         //public IEnumerable<EmailTemplateModel> GetAllEmailTemplates()

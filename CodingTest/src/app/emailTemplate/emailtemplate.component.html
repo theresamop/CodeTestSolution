@@ -33,7 +33,7 @@
                             <div class="col-sm-12 links" *ngFor="let item of pagedItems">
                                 <div style="float:left;height:50px;" [ngStyle]="{'width': 'calc(100% /' + pagedItems.length + ')'}">
                                     <a (click)="setPage(item)">
-                                        <span class="pagination">{{item}}</span>
+                                        <span>{{item}}</span>
                                     </a>
                                 </div>
                             </div>

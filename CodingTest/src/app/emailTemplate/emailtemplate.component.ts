@@ -36,9 +36,14 @@ export class EmailTemplateComponent implements OnInit{
         
 
         this.columnSortBy = this.columnSortBy + this.sortByDirection;
-        this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy,this.pageNum).subscribe(suc => { this.data = suc; this.totalCnt = this.data.ItemsTotalCount; this.totalPages = this.data.ItemsTotalCount / this.data.ItemsPageSz; this.emailtemplates = <IEmailTemplate[]>this.data.EmailTemplateModels; this.createRange() });
+      //  this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy,this.pageNum).subscribe(suc => { this.data = suc; this.totalCnt = this.data.ItemsTotalCount; this.totalPages = this.data.ItemsTotalCount / this.data.ItemsPageSz; this.emailtemplates = <IEmailTemplate[]>this.data.EmailTemplateModels; this.createRange() });
+        this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(suc => {
+            this.data = suc; this.totalCnt = this.data.Data.ItemsTotalCount; this.totalPages = this.data.Data.ItemsTotalCount / this.data.Data.ItemsPageSz;
+            this.emailtemplates = <IEmailTemplate[]>this.data.Data.EmailTemplateModels;
+            this.createRange(); this.pageSz = this.data.Data.ItemsPageSz;
+        });
 
-        this.pageSz = this.data.ItemsPageSz;
+       // this.pageSz = this.data.Data.ItemsPageSz;
         this.columns = this._emailTempSvc.getColumns();
 
     }
@@ -55,8 +60,8 @@ export class EmailTemplateComponent implements OnInit{
 
         this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(suc =>
         {
-            this.data = suc; this.totalCnt = this.data.ItemsTotalCount; this.totalPages = this.data.ItemsTotalCount / this.data.ItemsPageSz;
-            this.emailtemplates = <IEmailTemplate[]>this.data.EmailTemplateModels;
+            this.data = suc; this.totalCnt = this.data.Data.ItemsTotalCount; this.totalPages = this.data.Data.ItemsTotalCount / this.data.Data.ItemsPageSz;
+            this.emailtemplates = <IEmailTemplate[]>this.data.Data.EmailTemplateModels;
             this.createRange()
         });
 
@@ -84,8 +89,9 @@ export class EmailTemplateComponent implements OnInit{
         this.textItems = "Page " + this.pageNum  + " of " + this.totalPages;
         console.log("setPage clicked " + page)
         this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(suc => {
-            this.data = suc; this.totalCnt = this.data.ItemsTotalCount; this.totalPages = this.data.ItemsTotalCount / this.data.ItemsPageSz;
-            this.emailtemplates = <IEmailTemplate[]>this.data.EmailTemplateModels
+            this.data = suc; this.totalCnt = this.data.Data.ItemsTotalCount; this.totalPages = this.data.Data.ItemsTotalCount / this.data.Data.ItemsPageSz;
+            this.emailtemplates = <IEmailTemplate[]>this.data.Data.EmailTemplateModels;
+            this.createRange()
         });
     }
 
