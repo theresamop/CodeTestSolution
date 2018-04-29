@@ -23,10 +23,10 @@ namespace CodingTest.Services
 
         public List<EmailTemplateModel> GetAllTemplatesSorted(string columnSortBy, int pageNum, out int totalCnt)
         {
-            if (string.IsNullOrEmpty(columnSortBy))
-                columnSortBy = "EmailLabelAscending";
-            if (pageNum == 0)
-                pageNum = 1;
+            //if (string.IsNullOrEmpty(columnSortBy))
+            //    columnSortBy = "EmailLabelAscending";
+            //if (pageNum == 0)
+            //    pageNum = 1;
 
             var sortBy = Enum.Parse(typeof(EmailSortBy), columnSortBy);
             var items = EmailTemplates.GetAll((EmailSortBy)sortBy, pageNum, 10, true, Modules.Config.EmailType.WelcomeEmail);
