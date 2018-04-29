@@ -1,7 +1,8 @@
 ﻿import { Component , OnInit} from '@angular/core';
-import { IEmailTemplate } from './emailTemplate';
+import { IEmailTemplate, IColumn } from './emailTemplate';
 import { EmailTemplatesService } from './emailTemplatesService';
 import { PagerService } from '../service/pager.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'my-emailTemplate',
@@ -22,6 +23,9 @@ export class EmailTemplateComponent implements OnInit{
     sortByDirection : string = "Ascending"
     classSort: string = "chevron-up";
     textItems: string = "";
+    columns: IColumn[];
+    isShow: boolean = true;
+    isSorted: boolean = false;
     constructor(private _emailTempSvc: EmailTemplatesService, private pagerService: PagerService) {
 
        
@@ -29,26 +33,23 @@ export class EmailTemplateComponent implements OnInit{
 
     ngOnInit() {
         
-        //this._emailTempSvc.getEmailTemplates()
-        //    .subscribe((emailTemplateData) => { this.emailtemplates = emailTemplateData; this.setPage(1); });
+       
         this.columnSortBy = this.columnSortBy + this.sortByDirection;
         this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy,this.pageNum).subscribe(suc => { this.data = suc; this.totalCnt = this.data.ItemsTotalCount; this.totalPages = this.data.ItemsTotalCount / this.data.ItemsPageSz; this.emailtemplates = <IEmailTemplate[]>this.data.EmailTemplateModels; this.createRange() });
-      //  this.emailtemplates = <IEmailTemplate[]>this.data.EmailTemplateModels;
-        //this.totalCnt = this.data.ItemsTotalCount;
+
         this.pageSz = this.data.ItemsPageSz;
-       
-       
-        
+        this.columns = this._emailTempSvc.getColumns();
     }
     getTotalDatacnt() {
         this.emailtemplates.length;
     }
 
-    onClick(col: string): void {
-        console.log("sorted clicked " + col + " " + this.sortByDirection);
+    onClick(colObj: IColumn): void {
+        let col = colObj.Field;
+        console.log("sorted clicked " + colObj.SortDirection);
 
-        this.setDirection(this.sortByDirection);
-        this.columnSortBy = col + this.sortByDirection;
+        this.setDirection(colObj);
+        this.columnSortBy = colObj.Field + colObj.SortDirection;
 
         this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(suc =>
         {
@@ -57,8 +58,7 @@ export class EmailTemplateComponent implements OnInit{
             this.createRange()
         });
 
-        //this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum)
-        //    .subscribe((emailTemplateData) => this.emailtemplates = emailTemplateData);
+      
     }
    
     createRange() {
@@ -87,14 +87,20 @@ export class EmailTemplateComponent implements OnInit{
         });
     }
 
-    setDirection(direction: string) {
-        if (direction == "Ascending") {
-            this.sortByDirection = "Descending";
-            this.classSort = "chevron-down";
+    setDirection(colObj: IColumn) {
+        if (colObj.SortDirection == "Ascending") {
+            colObj.SortDirection = "Descending";
+            colObj.TextSort = "V";
         }
         else {
-            this.sortByDirection = "Ascending";
-            this.classSort = "chevron-up";
+            colObj.SortDirection = "Ascending";
+            colObj.TextSort = "^";
         }
+        //reset sorting of other cols
+        this.columns.forEach(col => {
+            if (col.Field != colObj.Field) {
+                col.TextSort = "";
+            }
+        });
     }
 }

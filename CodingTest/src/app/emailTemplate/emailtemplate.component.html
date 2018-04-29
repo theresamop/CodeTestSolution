@@ -8,9 +8,31 @@
     <table id="emailTemplate">
         <thead>
             <tr>
-                <th ng-bind="sortByDirection" on-click="onClick('EmailLabel')" >Email Label</th>
-                <th ng-bind="sortByDirection" on-click="onClick('FromAddress')">From Address </th>
-                <th ng-bind="sortByDirection" on-click="onClick('DateUpdated')">Date Updated </th>
+                <!--<th ng-bind="sortByDirection" on-click="onClick('EmailLabel')">
+                    Email Label
+                    <span [style.display]="isShow?'inherit':'none'">^</span>
+                    <span [style.display]="!isShow?'inherit':'none'">v</span>
+                   
+                </th>
+                <th ng-bind="sortByDirection" on-click="onClick('FromAddress')">
+                    From Address
+                    <span [style.display]="isShow?'inherit':'none'">^</span>
+                    <span [style.display]="!isShow?'inherit':'none'">v</span>
+                </th>
+                <th ng-bind="sortByDirection" on-click="onClick('DateUpdated')">
+                    Date Updated
+                    <span [style.display]="isShow?'inherit':'none'">^</span>
+                    <span [style.display]="!isShow?'inherit':'none'">v</span>
+                </th>-->
+
+            </tr>
+            <tr>
+                
+
+                    <td style="background-color:#4CAF50" on-click="onClick(col)" *ngFor="let col of columns;">
+                        {{col.Label}} {{col.TextSort}}
+                    </td>
+                
             </tr>
         </thead>
         <tbody>

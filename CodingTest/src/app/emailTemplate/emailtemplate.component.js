@@ -26,25 +26,25 @@ var EmailTemplateComponent = /** @class */ (function () {
         this.sortByDirection = "Ascending";
         this.classSort = "chevron-up";
         this.textItems = "";
+        this.isShow = true;
+        this.isSorted = false;
     }
     EmailTemplateComponent.prototype.ngOnInit = function () {
         var _this = this;
-        //this._emailTempSvc.getEmailTemplates()
-        //    .subscribe((emailTemplateData) => { this.emailtemplates = emailTemplateData; this.setPage(1); });
         this.columnSortBy = this.columnSortBy + this.sortByDirection;
         this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(function (suc) { _this.data = suc; _this.totalCnt = _this.data.ItemsTotalCount; _this.totalPages = _this.data.ItemsTotalCount / _this.data.ItemsPageSz; _this.emailtemplates = _this.data.EmailTemplateModels; _this.createRange(); });
-        //  this.emailtemplates = <IEmailTemplate[]>this.data.EmailTemplateModels;
-        //this.totalCnt = this.data.ItemsTotalCount;
         this.pageSz = this.data.ItemsPageSz;
+        this.columns = this._emailTempSvc.getColumns();
     };
     EmailTemplateComponent.prototype.getTotalDatacnt = function () {
         this.emailtemplates.length;
     };
-    EmailTemplateComponent.prototype.onClick = function (col) {
+    EmailTemplateComponent.prototype.onClick = function (colObj) {
         var _this = this;
-        console.log("sorted clicked " + col + " " + this.sortByDirection);
-        this.setDirection(this.sortByDirection);
-        this.columnSortBy = col + this.sortByDirection;
+        var col = colObj.Field;
+        console.log("sorted clicked " + colObj.SortDirection);
+        this.setDirection(colObj);
+        this.columnSortBy = colObj.Field + colObj.SortDirection;
         this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum).subscribe(function (suc) {
             _this.data = suc;
             _this.totalCnt = _this.data.ItemsTotalCount;
@@ -52,8 +52,6 @@ var EmailTemplateComponent = /** @class */ (function () {
             _this.emailtemplates = _this.data.EmailTemplateModels;
             _this.createRange();
         });
-        //this._emailTempSvc.getEmailTemplatesSorted(this.columnSortBy, this.pageNum)
-        //    .subscribe((emailTemplateData) => this.emailtemplates = emailTemplateData);
     };
     EmailTemplateComponent.prototype.createRange = function () {
         this.pagedItems = [];
@@ -83,15 +81,21 @@ var EmailTemplateComponent = /** @class */ (function () {
             _this.emailtemplates = _this.data.EmailTemplateModels;
         });
     };
-    EmailTemplateComponent.prototype.setDirection = function (direction) {
-        if (direction == "Ascending") {
-            this.sortByDirection = "Descending";
-            this.classSort = "chevron-down";
+    EmailTemplateComponent.prototype.setDirection = function (colObj) {
+        if (colObj.SortDirection == "Ascending") {
+            colObj.SortDirection = "Descending";
+            colObj.TextSort = "V";
         }
         else {
-            this.sortByDirection = "Ascending";
-            this.classSort = "chevron-up";
+            colObj.SortDirection = "Ascending";
+            colObj.TextSort = "^";
         }
+        //reset sorting of other cols
+        this.columns.forEach(function (col) {
+            if (col.Field != colObj.Field) {
+                col.TextSort = "";
+            }
+        });
     };
     EmailTemplateComponent = __decorate([
         core_1.Component({
